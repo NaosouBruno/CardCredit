@@ -1,4 +1,4 @@
-import "./App.css";
+import "./App.scss";
 import { CardForm } from "./components/molecules/index";
 function App() {
   return (
