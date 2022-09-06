@@ -1,10 +1,6 @@
 import "./form.scss";
 function CardForm() {
-  return (
-    <div className="teste">
-      <h1>Card</h1>
-    </div>
-  );
+  return <form className="form"></form>;
 }
 
 export default CardForm;
