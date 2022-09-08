@@ -11,6 +11,11 @@
     margin-bottom: 25px;
     min-width: 90%;
   }
+  &__containerDate {
+    display: flex;
+    flex-direction: row;
+    min-width: 90%;
+  }
   &__description {
     color: $violetVeryDark;
     text-transform: uppercase;
@@ -26,6 +31,23 @@
 
     &:focus {
       border-color: hsl(278, 94%, 30%);
+    }
+    &--date {
+      margin-left: 15px;
+      min-width: 10%;
+      max-width: 25%;
+      &:first-child {
+        margin-left: 0;
+      }
+    }
+  }
+  &__dateGroup {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    &--dateInput {
+      flex-direction: row;
     }
   }
   &__btnSubmit {
