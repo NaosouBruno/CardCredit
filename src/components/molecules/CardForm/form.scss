@@ -1,5 +1,40 @@
+@use "/public/styles/variables" as *;
 .form {
   display: flex;
   flex-direction: column;
+  align-items: center;
   margin-top: 150px;
+
+  &__container {
+    display: flex;
+    flex-direction: column;
+    min-width: 90%;
+  }
+  &__description {
+    color: $violetVeryDark;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+    letter-spacing: 2px;
+  }
+  &__input {
+    border-radius: 5px;
+    border: 1px solid $violetLight;
+    height: 45px;
+    min-width: 90%;
+    padding-left: 15px;
+
+    &:focus {
+      border-color: hsl(278, 94%, 30%);
+    }
+  }
+  &__btnSubmit {
+    letter-spacing: 1px;
+    margin-top: 25px;
+    color: $white;
+    background-color: $violetVeryDark;
+    border: none;
+    border-radius: 8px;
+    min-width: 90%;
+    height: 50px;
+  }
 }
