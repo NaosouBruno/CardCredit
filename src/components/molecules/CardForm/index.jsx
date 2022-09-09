@@ -28,13 +28,12 @@ function CardForm() {
           placeholder="e.g. 1234 5678 9123 0000"
         />
       </div>
-
       <div className="form__containerDate">
         <div className="form__dateGroup">
           <label htmlFor="cardDate" className="form__description">
             Exp. Date (MM/YY)
           </label>
-          <div className="form__dateGroup form__dateGroup--dateInput">
+          <div>
             <input
               type="number"
               id="cardDate"
@@ -44,12 +43,11 @@ function CardForm() {
             <input
               type="number"
               id="cardDate"
-              className="form__input form__input--date"
+              className=" form__input form__input--date"
               placeholder="YY"
             />
           </div>
         </div>
-
         <div className="form__dateGroup">
           <label htmlFor="cardCvc" className="form__description">
             CVC
@@ -57,11 +55,12 @@ function CardForm() {
           <input
             type="number"
             id="cardCvc"
-            className="form__input form__input--date"
+            className="form__input form__input--cvc"
             placeholder="e.g 123"
           />
         </div>
       </div>
+
       <button className="form__btnSubmit">Confirm</button>
     </form>
   );
