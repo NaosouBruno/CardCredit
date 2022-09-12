@@ -2,21 +2,21 @@ import { useState } from "react";
 import "./form.scss";
 const initialState = {
   name: "",
-  /* number: "",
-  mm: "",
-  yy: "",
-  cvc: "", */
+};
+const initialValid = {
+  name: true,
 };
 
 function CardForm() {
   const [card, setCard] = useState(initialState);
-  const [nameHasError, setNameHasError] = useState(false);
+  const [valid, setValid] = useState(initialValid);
 
   const submitForm = (event) => {
     event.preventDefault();
     if (validForm()) {
       alert("Deu certo");
       setCard({ ...initialState });
+      setValid({ ...initialValid });
     }
     console.log(card);
   };
@@ -27,14 +27,24 @@ function CardForm() {
       ...card,
       [event.target.name]: value,
     });
+    if (value.trim().length > 0) {
+      setValid({
+        ...valid,
+        [event.target.name]: true,
+      });
+    } else {
+      setValid({
+        ...valid,
+        [event.target.name]: false,
+      });
+    }
   };
 
   const validForm = () => {
-    if (card.name.trim().length > 0) {
-      setNameHasError(false);
+    console.log(valid.name);
+    if (valid.name && card.name.trim().length > 0) {
       return true;
     } else {
-      setNameHasError(true);
       return false;
     }
   };
@@ -49,7 +59,7 @@ function CardForm() {
           type="text"
           id="cardName"
           /* className="form__input" */
-          className={nameHasError ? "form__input error" : "form__input "}
+          className={valid.name ? "form__input " : "form__input error"}
           placeholder="e.g. Jnae Appleseed"
           name="name"
           value={card.name}
