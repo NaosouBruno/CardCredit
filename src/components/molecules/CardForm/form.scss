@@ -69,5 +69,9 @@
 }
 
 .error {
-  border: 1px solid red;
+  border: 1px solid $errorInput;
+  &__description {
+    margin-top: 10px;
+    color: $errorInput;
+  }
 }

@@ -41,10 +41,13 @@ function CardForm() {
   };
 
   const validForm = () => {
-    console.log(valid.name);
     if (valid.name && card.name.trim().length > 0) {
       return true;
     } else {
+      setValid({
+        ...valid,
+        name: false,
+      });
       return false;
     }
   };
@@ -65,6 +68,9 @@ function CardForm() {
           value={card.name}
           onChange={handlerChange}
         />
+        <span className={valid.name ? " " : "error__description"}>
+          {valid.name ? "" : "Can`t be blank"}
+        </span>
       </div>
 
       <div className="form__container">
