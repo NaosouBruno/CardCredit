@@ -1,15 +1,19 @@
 import { useState } from "react";
+import { InputForm } from "../../atoms/index";
 import "./form.scss";
 const initialState = {
   name: "",
+  number: "",
 };
 const initialValid = {
   name: true,
+  number: true,
 };
 
 function CardForm() {
   const [card, setCard] = useState(initialState);
   const [valid, setValid] = useState(initialValid);
+  /* const [allValid, setAllValid] = useState(false); */
 
   const submitForm = (event) => {
     event.preventDefault();
@@ -18,7 +22,7 @@ function CardForm() {
       setCard({ ...initialState });
       setValid({ ...initialValid });
     }
-    console.log(card);
+    /* console.log(card); */
   };
 
   const handlerChange = (event) => {
@@ -27,7 +31,13 @@ function CardForm() {
       ...card,
       [event.target.name]: value,
     });
-    if (value.trim().length > 0) {
+    isEmpety(event);
+  };
+
+  const isEmpety = (event) => {
+    console.log(valid);
+
+    if (event.target.value.trim().length > 0) {
       setValid({
         ...valid,
         [event.target.name]: true,
@@ -41,15 +51,7 @@ function CardForm() {
   };
 
   const validForm = () => {
-    if (valid.name && card.name.trim().length > 0) {
-      return true;
-    } else {
-      setValid({
-        ...valid,
-        name: false,
-      });
-      return false;
-    }
+    console.log(valid.name);
   };
 
   return (
@@ -58,16 +60,24 @@ function CardForm() {
         <label htmlFor="cardName" className="form__description">
           Cardholder Name
         </label>
-        <input
+        <InputForm
           type="text"
           id="cardName"
-          /* className="form__input" */
+          class={valid.name ? "form__input " : "form__input error"}
+          placeholder="e.g. Jnae Appleseed"
+          name="name"
+          value={card.name}
+          onTextChange={handlerChange}
+        />
+        {/* <input
+          type="text"
+          id="cardName"
           className={valid.name ? "form__input " : "form__input error"}
           placeholder="e.g. Jnae Appleseed"
           name="name"
           value={card.name}
           onChange={handlerChange}
-        />
+        /> */}
         <span className={valid.name ? " " : "error__description"}>
           {valid.name ? "" : "Can`t be blank"}
         </span>
@@ -80,9 +90,16 @@ function CardForm() {
         <input
           type="number"
           id="cardNumber"
-          className="form__input"
+          className={valid.number ? "form__input " : "form__input error"}
           placeholder="e.g. 1234 5678 9123 0000"
+          name="number"
+          value={card.number}
+          onChange={handlerChange}
         />
+
+        <span className={valid.number ? " " : "error__description"}>
+          {valid.number ? "" : "Can`t be blank"}
+        </span>
       </div>
       <div className="form__containerDate">
         <div className="form__dateGroup">
