@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { InputForm } from "../../atoms/index";
 import "./form.scss";
 const initialState = {
@@ -8,45 +8,32 @@ const initialState = {
   yy: "",
   cvc: "",
 };
-const initialValid = {
-  name: false,
-  number: false,
-};
-/* const initialClass = {
-  name: true,
-  number: true,
-}; */
 
 function CardForm() {
   const [card, setCard] = useState(initialState);
-  const [valid, setValid] = useState(initialValid);
-  const [classValid, setClassValid] = useState({ name: true, number: true });
+
+  const [classValid, setClassValid] = useState({
+    name: true,
+    number: true,
+    mm: true,
+    yy: true,
+    cvc: true,
+  });
+
+  const [inputIsValid, setInputIsValid] = useState({
+    name: false,
+    number: false,
+    mm: false,
+    yy: false,
+    cvc: false,
+  });
 
   const submitForm = (event) => {
     event.preventDefault();
-
-    if (validForm()) {
-      alert("Deu certo");
-      setCard({ ...initialState });
-      setValid({ ...initialValid });
+    if (formIsValid()) {
+      alert("Deu certo!");
     } else {
-      isValid();
-    }
-  };
-  const isValid = () => {
-    for (const val in valid) {
-      if (valid[val]) {
-        setClassValid({
-          ...classValid,
-          [val]: true,
-        });
-      } else {
-        /*  console.log(valid); */
-        console.log(classValid);
-        setClassValid({
-          [val]: false,
-        });
-      }
+      classIsValid();
     }
   };
 
@@ -56,24 +43,17 @@ function CardForm() {
       ...card,
       [event.target.name]: value,
     });
-    isEmpety(event);
+    classChange(event);
+    inputChange(event);
   };
 
-  const isEmpety = (event) => {
+  const classChange = (event) => {
     if (event.target.value.trim().length > 0) {
-      setValid({
-        ...valid,
-        [event.target.name]: true,
-      });
       setClassValid({
         ...classValid,
         [event.target.name]: true,
       });
     } else {
-      setValid({
-        ...valid,
-        [event.target.name]: false,
-      });
       setClassValid({
         ...classValid,
         [event.target.name]: false,
@@ -81,12 +61,40 @@ function CardForm() {
     }
   };
 
-  const validForm = () => {
-    if (valid.name && valid.number) {
-      console.log("valid");
+  const formIsValid = () => {
+    if (inputIsValid.name && inputIsValid.number) {
       return true;
     } else {
       return false;
+    }
+  };
+
+  const inputChange = (event) => {
+    if (event.target.value.trim().length > 0) {
+      setInputIsValid({
+        ...inputIsValid,
+        [event.target.name]: true,
+      });
+    } else {
+      setInputIsValid({
+        ...inputIsValid,
+        [event.target.name]: false,
+      });
+    }
+  };
+
+  const classIsValid = () => {
+    for (const val in inputIsValid) {
+      console.log(inputIsValid[val]);
+      if (!inputIsValid[val]) {
+        console.log(val);
+        setClassValid((classValid) => {
+          return {
+            ...classValid,
+            [val]: false,
+          };
+        });
+      }
     }
   };
 
@@ -99,7 +107,6 @@ function CardForm() {
         <InputForm
           type="text"
           id="cardName"
-          /* class="form__input" */
           class={classValid.name ? "form__input " : "form__input error"}
           placeholder="e.g. Jnae Appleseed"
           name="name"
@@ -107,9 +114,9 @@ function CardForm() {
           onTextChange={handlerChange}
         />
 
-        {/*  <span className={valid.name ? " " : "error__description"}>
-          {valid.name ? "" : "Can`t be blank"}
-        </span> */}
+        <span className={classValid.name ? " " : "error__description"}>
+          {classValid.name ? "" : "Can`t be blank"}
+        </span>
       </div>
 
       <div className="form__container">
@@ -119,7 +126,6 @@ function CardForm() {
         <InputForm
           type="number"
           id="cardNumber"
-          /* class="form__input" */
           class={classValid.number ? "form__input " : "form__input error"}
           placeholder="e.g. 1234 5678 9123 0000"
           name="number"
@@ -127,10 +133,11 @@ function CardForm() {
           onTextChange={handlerChange}
         />
 
-        {/*  <span className={valid.number ? " " : "error__description"}>
-          {valid.number ? "" : "Can`t be blank"}
-        </span> */}
+        <span className={classValid.number ? " " : "error__description"}>
+          {classValid.number ? "" : "Can`t be blank"}
+        </span>
       </div>
+
       <div className="form__containerDate">
         <div className="form__dateGroup">
           <label htmlFor="cardDate" className="form__description">
@@ -140,7 +147,11 @@ function CardForm() {
             <InputForm
               type="number"
               id="cardDate"
-              class="form__input form__input--date"
+              class={
+                classValid.mm
+                  ? "form__input form__input--date"
+                  : "form__input form__input--date error"
+              }
               placeholder="MM"
               name="mm"
               value={card.mm}
@@ -150,7 +161,11 @@ function CardForm() {
             <InputForm
               type="number"
               id="cardDate"
-              class="form__input form__input--date"
+              class={
+                classValid.yy
+                  ? "form__input form__input--date"
+                  : "form__input form__input--date error"
+              }
               placeholder="YY"
               name="yy"
               value={card.yy}
@@ -165,7 +180,11 @@ function CardForm() {
           <InputForm
             type="number"
             id="cardCvc"
-            class="form__input form__input--cvc"
+            class={
+              classValid.cvc
+                ? "form__input form__input--cvc"
+                : "form__input form__input--cvc error"
+            }
             placeholder="e.g 123"
             name="cvc"
             value={card.cvc}
