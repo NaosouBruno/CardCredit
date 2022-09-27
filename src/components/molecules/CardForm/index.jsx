@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { InputForm } from "../../atoms/index";
+import { InputForm, InputError } from "../../atoms/index";
 import "./form.scss";
 const initialState = {
   name: "",
@@ -114,9 +114,13 @@ function CardForm() {
           onTextChange={handlerChange}
         />
 
-        <span className={classValid.name ? " " : "error__description"}>
+        {/*  <span className={classValid.name ? " " : "error__description"}>
           {classValid.name ? "" : "Can`t be blank"}
-        </span>
+        </span> */}
+        <InputError
+          class={classValid.name ? " " : "error__description"}
+          content={classValid.name ? "" : "Can`t be blank"}
+        />
       </div>
 
       <div className="form__container">
@@ -133,9 +137,10 @@ function CardForm() {
           onTextChange={handlerChange}
         />
 
-        <span className={classValid.number ? " " : "error__description"}>
-          {classValid.number ? "" : "Can`t be blank"}
-        </span>
+        <InputError
+          class={classValid.number ? " " : "error__description"}
+          content={classValid.number ? "" : "Can`t be blank"}
+        />
       </div>
 
       <div className="form__containerDate">
@@ -172,6 +177,10 @@ function CardForm() {
               onTextChange={handlerChange}
             />
           </div>
+          <InputError
+            class={classValid.mm ? " " : "error__description"}
+            content={classValid.mm ? "" : "Can`t be blank"}
+          />
         </div>
         <div className="form__dateGroup">
           <label htmlFor="cardCvc" className="form__description">
@@ -189,6 +198,10 @@ function CardForm() {
             name="cvc"
             value={card.cvc}
             onTextChange={handlerChange}
+          />
+          <InputError
+            class={classValid.cvc ? " " : "error__description"}
+            content={classValid.cvc ? "" : "Can`t be blank"}
           />
         </div>
       </div>
