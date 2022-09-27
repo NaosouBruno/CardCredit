@@ -8,6 +8,8 @@ function InputForm(props) {
       name={props.name}
       value={props.value}
       onChange={props.onTextChange}
+      min={props.min}
+      max={props.max}
     />
   );
 }

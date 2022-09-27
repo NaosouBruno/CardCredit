@@ -1,0 +1,67 @@
+@use "/public/styles/variables" as *;
+.cardInfo {
+  height: 280px;
+  position: relative;
+  background-image: url("../../../../public/assets/bg-main-mobile.png");
+  background-size: 375px;
+  background-repeat: no-repeat;
+
+  &__back {
+    background-image: url("../../../../public/assets/bg-card-back.png");
+    width: 290px;
+    height: 159px;
+    top: 15%;
+    left: 18%;
+    object-fit: fill;
+    position: absolute;
+    background-size: 290px;
+  }
+  &__front {
+    background-image: url("../../../../public/assets/bg-card-front.png");
+    width: 278px;
+    height: 153px;
+    top: 47%;
+    left: 5%;
+    object-fit: fill;
+    position: absolute;
+    background-size: 278px;
+  }
+  &__bigBall {
+    background-image: url("../../../../public/assets/card-logo.svg");
+    background-size: 70px;
+    width: 70px;
+    height: 39px;
+    position: absolute;
+    top: 8%;
+    left: 10%;
+  }
+
+  &__cardCvc {
+    position: absolute;
+    top: 45%;
+    left: 82%;
+    font-size: 0.6em;
+    color: $violetLight;
+  }
+  &__cardNumber {
+    position: absolute;
+    color: $violetLight;
+    font-size: 1em;
+    width: 200px;
+    top: 200%;
+  }
+  &__cardGroup {
+    position: absolute;
+    top: 300%;
+    display: flex;
+    color: $violetLight;
+  }
+  &__cardName {
+    width: 200px;
+
+    font-size: 0.7em;
+  }
+  &__cardValidty {
+    font-size: 0.7em;
+  }
+}

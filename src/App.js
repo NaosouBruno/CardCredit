@@ -1,7 +1,8 @@
-import { CardForm } from "./components/molecules/index";
+import { CardForm, CardInfo } from "./components/molecules/index";
 function App() {
   return (
     <div className="App">
+      <CardInfo />
       <CardForm />
     </div>
   );

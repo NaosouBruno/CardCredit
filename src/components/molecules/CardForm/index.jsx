@@ -120,15 +120,12 @@ function CardForm() {
           type="text"
           id="cardName"
           class={classValid.name ? "form__input " : "form__input error"}
-          placeholder="e.g. Jnae Appleseed"
+          placeholder="e.g. Jane Appleseed"
           name="name"
           value={card.name}
           onTextChange={handlerChange}
         />
 
-        {/*  <span className={classValid.name ? " " : "error__description"}>
-          {classValid.name ? "" : "Can`t be blank"}
-        </span> */}
         <InputError
           class={classValid.name ? " " : "error__description"}
           content={classValid.name ? "" : "Can`t be blank"}
@@ -147,6 +144,8 @@ function CardForm() {
           name="number"
           value={card.number}
           onTextChange={handlerChange}
+          min="16"
+          max="16"
         />
 
         <InputError
@@ -173,6 +172,8 @@ function CardForm() {
               name="mm"
               value={card.mm}
               onTextChange={handlerChange}
+              min="2"
+              max="2"
             />
 
             <InputForm
@@ -187,11 +188,15 @@ function CardForm() {
               name="yy"
               value={card.yy}
               onTextChange={handlerChange}
+              min="2"
+              max="2"
             />
           </div>
           <InputError
             class={classValid.mm ? " " : "error__description"}
             content={classValid.mm ? "" : "Can`t be blank"}
+            min="3"
+            max="3"
           />
         </div>
         <div className="form__dateGroup">
