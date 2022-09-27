@@ -9,29 +9,35 @@ const initialState = {
   cvc: "",
 };
 
+const initialClassState = {
+  name: true,
+  number: true,
+  mm: true,
+  yy: true,
+  cvc: true,
+};
+
+const initialInputsState = {
+  name: false,
+  number: false,
+  mm: false,
+  yy: false,
+  cvc: false,
+};
 function CardForm() {
   const [card, setCard] = useState(initialState);
 
-  const [classValid, setClassValid] = useState({
-    name: true,
-    number: true,
-    mm: true,
-    yy: true,
-    cvc: true,
-  });
+  const [classValid, setClassValid] = useState(initialClassState);
 
-  const [inputIsValid, setInputIsValid] = useState({
-    name: false,
-    number: false,
-    mm: false,
-    yy: false,
-    cvc: false,
-  });
+  const [inputIsValid, setInputIsValid] = useState(initialInputsState);
 
   const submitForm = (event) => {
     event.preventDefault();
     if (formIsValid()) {
       alert("Deu certo!");
+      setCard(initialState);
+      setClassValid(initialClassState);
+      setInputIsValid(initialInputsState);
     } else {
       classIsValid();
     }
@@ -62,7 +68,13 @@ function CardForm() {
   };
 
   const formIsValid = () => {
-    if (inputIsValid.name && inputIsValid.number) {
+    if (
+      inputIsValid.name &&
+      inputIsValid.number &&
+      inputIsValid.mm &&
+      inputIsValid.yy &&
+      inputIsValid.cvc
+    ) {
       return true;
     } else {
       return false;
