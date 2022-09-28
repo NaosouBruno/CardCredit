@@ -3,7 +3,8 @@
   height: 280px;
   position: relative;
   background-image: url("../../../../public/assets/bg-main-mobile.png");
-  background-size: 375px;
+  /* background-size: 375px; */
+  background-size: 100%;
   background-repeat: no-repeat;
 
   &__back {
@@ -64,4 +65,8 @@
   &__cardValidty {
     font-size: 0.7em;
   }
+}
+
+.teste {
+  width: 100vw;
 }

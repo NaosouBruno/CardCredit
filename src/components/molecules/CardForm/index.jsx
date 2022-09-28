@@ -24,7 +24,7 @@ const initialInputsState = {
   yy: false,
   cvc: false,
 };
-function CardForm() {
+function CardForm({ onAddCard }) {
   const [card, setCard] = useState(initialState);
 
   const [classValid, setClassValid] = useState(initialClassState);
@@ -34,6 +34,7 @@ function CardForm() {
   const submitForm = (event) => {
     event.preventDefault();
     if (formIsValid()) {
+      /*  onAddCard(card); */
       alert("Deu certo!");
       setCard(initialState);
       setClassValid(initialClassState);
@@ -45,10 +46,12 @@ function CardForm() {
 
   const handlerChange = (event) => {
     const value = event.target.value;
+
     setCard({
       ...card,
       [event.target.name]: value,
     });
+    onAddCard(value);
     classChange(event);
     inputChange(event);
   };
@@ -144,8 +147,6 @@ function CardForm() {
           name="number"
           value={card.number}
           onTextChange={handlerChange}
-          min="16"
-          max="16"
         />
 
         <InputError
@@ -172,8 +173,6 @@ function CardForm() {
               name="mm"
               value={card.mm}
               onTextChange={handlerChange}
-              min="2"
-              max="2"
             />
 
             <InputForm
@@ -188,15 +187,11 @@ function CardForm() {
               name="yy"
               value={card.yy}
               onTextChange={handlerChange}
-              min="2"
-              max="2"
             />
           </div>
           <InputError
             class={classValid.mm ? " " : "error__description"}
             content={classValid.mm ? "" : "Can`t be blank"}
-            min="3"
-            max="3"
           />
         </div>
         <div className="form__dateGroup">
