@@ -1,0 +1,22 @@
+@use "/public/styles/variables" as *;
+.valid {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 75px;
+  &__container {
+    margin-top: 30px;
+    &--bot {
+      margin: 25px;
+    }
+  }
+  &__message {
+    text-transform: uppercase;
+    color: $violetVeryDark;
+    letter-spacing: 5px;
+    font-weight: 700;
+  }
+  &__textDetails {
+    color: $violetDark;
+  }
+}

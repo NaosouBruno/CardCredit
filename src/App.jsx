@@ -1,5 +1,5 @@
 import React from "react";
-import { CardForm, CardInfo } from "./components/molecules/index";
+import { CardForm, CardInfo, CardValid } from "./components/molecules/index";
 import { useState } from "react";
 function App() {
   const [card, setCard] = useState([]);
@@ -13,7 +13,8 @@ function App() {
   return (
     <div className="App">
       <CardInfo list={card} />
-      <CardForm onAddCard={handleSavaCard} />
+      {/*  <CardForm onAddCard={handleSavaCard} /> */}
+      <CardValid />
     </div>
   );
 }

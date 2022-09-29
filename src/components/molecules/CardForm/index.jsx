@@ -35,7 +35,6 @@ function CardForm({ onAddCard }) {
     event.preventDefault();
     if (formIsValid()) {
       /*  onAddCard(card); */
-      alert("Deu certo!");
       setCard(initialState);
       setClassValid(initialClassState);
       setInputIsValid(initialInputsState);
@@ -51,7 +50,7 @@ function CardForm({ onAddCard }) {
       ...card,
       [event.target.name]: value,
     });
-    onAddCard(value);
+
     classChange(event);
     inputChange(event);
   };
