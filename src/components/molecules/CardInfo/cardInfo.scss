@@ -2,13 +2,13 @@
 .cardInfo {
   height: 280px;
   position: relative;
-  background-image: url("../../../../public/assets/bg-main-mobile.png");
+  background-image: url("/assets/bg-main-mobile.png");
   /* background-size: 375px; */
   background-size: 100%;
   background-repeat: no-repeat;
 
   &__back {
-    background-image: url("../../../../public/assets/bg-card-back.png");
+    background-image: url("/assets/bg-card-back.png");
     width: 290px;
     height: 159px;
     top: 15%;
@@ -18,7 +18,7 @@
     background-size: 290px;
   }
   &__front {
-    background-image: url("../../../../public/assets/bg-card-front.png");
+    background-image: url("/assets/bg-card-front.png");
     width: 278px;
     height: 153px;
     top: 47%;
@@ -28,7 +28,7 @@
     background-size: 278px;
   }
   &__bigBall {
-    background-image: url("../../../../public/assets/card-logo.svg");
+    background-image: url("/assets/card-logo.svg");
     background-size: 70px;
     width: 70px;
     height: 39px;
