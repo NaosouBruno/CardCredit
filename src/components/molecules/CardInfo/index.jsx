@@ -1,11 +1,11 @@
 import "./cardInfo.scss";
 function CardInfo({ list }) {
   let hasInfo = false;
-  console.log(hasInfo);
+  /*  console.log(hasInfo); */
 
   if (list.length > 0) {
     hasInfo = true;
-    console.log(hasInfo);
+    /*  console.log(hasInfo); */
   }
 
   return (

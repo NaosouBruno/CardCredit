@@ -34,10 +34,10 @@ function CardForm({ onAddCard }) {
   const submitForm = (event) => {
     event.preventDefault();
     if (formIsValid()) {
-      /*  onAddCard(card); */
-      setCard(initialState);
+      onAddCard(card);
+      /*  setCard(initialState);
       setClassValid(initialClassState);
-      setInputIsValid(initialInputsState);
+      setInputIsValid(initialInputsState); */
     } else {
       classIsValid();
     }
@@ -99,9 +99,9 @@ function CardForm({ onAddCard }) {
 
   const classIsValid = () => {
     for (const val in inputIsValid) {
-      console.log(inputIsValid[val]);
+      /*  console.log(inputIsValid[val]); */
       if (!inputIsValid[val]) {
-        console.log(val);
+        /*  console.log(val); */
         setClassValid((classValid) => {
           return {
             ...classValid,
