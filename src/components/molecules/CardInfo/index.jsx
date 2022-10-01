@@ -1,16 +1,20 @@
 import "./cardInfo.scss";
-function CardInfo({ list }) {
-  let hasInfo = false;
-  /*  console.log(hasInfo); */
+function CardInfo({ list, reset }) {
+  let hasInfo = reset;
+  /* console.log(hasInfo); */
+  console.log(reset);
 
   if (list.length > 0) {
+    console.log(hasInfo);
     hasInfo = true;
     /*  console.log(hasInfo); */
+  } else {
+    list = [];
   }
 
   return (
     <div className="cardInfo">
-      {hasInfo ? (
+      {reset ? (
         list.map((card, index) => (
           <div key={index}>
             <div className="cardInfo__back">
