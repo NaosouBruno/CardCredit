@@ -51,16 +51,46 @@ function CardForm({ onAddCard }) {
       [event.target.name]: value,
     });
 
+    fieldValid(event);
     classChange(event);
     inputChange(event);
   };
 
+  const fieldValid = (event) => {
+    switch (event.target.name) {
+      case "name":
+        checkName(event);
+        /*  checkField(event); */
+        break;
+      case "number":
+        checkField(event);
+        break;
+      case "mm":
+        checkField(event);
+        break;
+      case "yy":
+        checkField(event);
+        break;
+      case "cvc":
+        checkField(event);
+        break;
+      default:
+        console.log("a");
+    }
+  };
+
+  const checkName = (field) => {
+    if (field.target.value.trim().length < 3) {
+      console.log("entrou if");
+    } else {
+      console.log("entrou else");
+    }
+  };
+  const checkField = (event) => {};
+
   const classChange = (event) => {
     if (event.target.value.trim().length > 0) {
-      setClassValid({
-        ...classValid,
-        [event.target.name]: true,
-      });
+      /*  fieldValid(event); */
     } else {
       setClassValid({
         ...classValid,
@@ -99,9 +129,7 @@ function CardForm({ onAddCard }) {
 
   const classIsValid = () => {
     for (const val in inputIsValid) {
-      /*  console.log(inputIsValid[val]); */
       if (!inputIsValid[val]) {
-        /*  console.log(val); */
         setClassValid((classValid) => {
           return {
             ...classValid,
@@ -126,6 +154,9 @@ function CardForm({ onAddCard }) {
           name="name"
           value={card.name}
           onTextChange={handlerChange}
+          pattern="[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$"
+          min="3"
+          max="16"
         />
 
         <InputError
@@ -146,6 +177,9 @@ function CardForm({ onAddCard }) {
           name="number"
           value={card.number}
           onTextChange={handlerChange}
+          pattern="[0-9]+$"
+          min="16"
+          max="16"
         />
 
         <InputError
@@ -172,6 +206,9 @@ function CardForm({ onAddCard }) {
               name="mm"
               value={card.mm}
               onTextChange={handlerChange}
+              pattern="[0-9]+$"
+              min="2"
+              max="2"
             />
 
             <InputForm
@@ -186,6 +223,9 @@ function CardForm({ onAddCard }) {
               name="yy"
               value={card.yy}
               onTextChange={handlerChange}
+              pattern="[0-9]+$"
+              min="2"
+              max="2"
             />
           </div>
           <InputError
@@ -209,6 +249,9 @@ function CardForm({ onAddCard }) {
             name="cvc"
             value={card.cvc}
             onTextChange={handlerChange}
+            pattern="[0-9]+$"
+            min="3"
+            max="3"
           />
           <InputError
             class={classValid.cvc ? " " : "error__description"}
