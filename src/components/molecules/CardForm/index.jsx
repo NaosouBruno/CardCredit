@@ -57,7 +57,7 @@ function CardForm({ onAddCard }) {
     switch (event.target.name) {
       case "name":
         checkName(event);
-        checkFieldEmpty(event);
+        /* checkFieldEmpty(event); */
         break;
       case "number":
         checkFieldEmpty(event);
@@ -82,29 +82,59 @@ function CardForm({ onAddCard }) {
     const hasSpecial = /^(?=.*[@!#$%^&*()/\\])/;
 
     const resultNumber = hasNumber.test(checkName);
+
     const resultSpecial = hasSpecial.test(checkName);
-    if (resultNumber && resultSpecial) {
+
+    if (resultSpecial || resultNumber || checkName < 3 || checkName > 12) {
+      console.log("entrou if");
+      console.log(field.target.name);
       markHasFalse(field);
     } else {
       markHasTrue(field);
     }
-    console.log(resultSpecial);
   };
+  /* trocar essa validação se nao mesmo com caracter errado ele vai marcar como certo */
   const checkFieldEmpty = (event) => {
-    if (event.target.value.trim().length > 0) {
-      setInputIsValid({
-        ...inputIsValid,
-        [event.target.name]: true,
-      });
+    const targetName = event.target.name;
+    let min = 0;
+    let max = 0;
+    console.log("valor inicial", min, max);
+    switch (targetName) {
+      case "number":
+        min = 16;
+        max = 16;
+        fieldIsEmpty(event, min, max);
+
+        break;
+      case "mm":
+        min = 2;
+        max = 2;
+        fieldIsEmpty(event, min, max);
+
+        break;
+      case "yy":
+        min = 2;
+        max = 2;
+        fieldIsEmpty(event, min, max);
+
+        break;
+      case "cvc":
+        min = 2;
+        max = 2;
+        fieldIsEmpty(event, min, max);
+
+        break;
+      default:
+        break;
+    }
+  };
+
+  const fieldIsEmpty = (event, min, max) => {
+    const value = event.target.value;
+    if (value.trim().length < min || value.trim().length > max) {
+      markHasFalse(event);
     } else {
-      setInputIsValid({
-        ...inputIsValid,
-        [event.target.name]: false,
-      });
-      setClassValid({
-        ...classValid,
-        [event.target.name]: false,
-      });
+      markHasTrue(event);
     }
   };
 
