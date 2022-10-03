@@ -16,7 +16,6 @@ function App() {
   };
 
   const handleBtn = (btnClicked) => {
-    console.log("btn cliecked", btnClicked);
     setFormValid(btnClicked);
     setResetList(btnClicked);
   };

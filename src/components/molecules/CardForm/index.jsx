@@ -35,9 +35,6 @@ function CardForm({ onAddCard }) {
     event.preventDefault();
     if (formIsValid()) {
       onAddCard(card);
-      /*  setCard(initialState);
-      setClassValid(initialClassState);
-      setInputIsValid(initialInputsState); */
     } else {
       classIsValid();
     }
@@ -52,27 +49,27 @@ function CardForm({ onAddCard }) {
     });
 
     fieldValid(event);
-    classChange(event);
-    inputChange(event);
+    /* classChange(event);
+    inputChange(event); */
   };
 
   const fieldValid = (event) => {
     switch (event.target.name) {
       case "name":
         checkName(event);
-        /*  checkField(event); */
+        checkFieldEmpty(event);
         break;
       case "number":
-        checkField(event);
+        checkFieldEmpty(event);
         break;
       case "mm":
-        checkField(event);
+        checkFieldEmpty(event);
         break;
       case "yy":
-        checkField(event);
+        checkFieldEmpty(event);
         break;
       case "cvc":
-        checkField(event);
+        checkFieldEmpty(event);
         break;
       default:
         console.log("a");
@@ -80,18 +77,30 @@ function CardForm({ onAddCard }) {
   };
 
   const checkName = (field) => {
-    if (field.target.value.trim().length < 3) {
-      console.log("entrou if");
-    } else {
-      console.log("entrou else");
-    }
-  };
-  const checkField = (event) => {};
+    const checkName = field.target.value;
+    const hasNumber = /[0-9]/;
+    const hasSpecial = /^(?=.*[@!#$%^&*()/\\])/;
 
-  const classChange = (event) => {
-    if (event.target.value.trim().length > 0) {
-      /*  fieldValid(event); */
+    const resultNumber = hasNumber.test(checkName);
+    const resultSpecial = hasSpecial.test(checkName);
+    if (resultNumber && resultSpecial) {
+      markHasFalse(field);
     } else {
+      markHasTrue(field);
+    }
+    console.log(resultSpecial);
+  };
+  const checkFieldEmpty = (event) => {
+    if (event.target.value.trim().length > 0) {
+      setInputIsValid({
+        ...inputIsValid,
+        [event.target.name]: true,
+      });
+    } else {
+      setInputIsValid({
+        ...inputIsValid,
+        [event.target.name]: false,
+      });
       setClassValid({
         ...classValid,
         [event.target.name]: false,
@@ -113,18 +122,26 @@ function CardForm({ onAddCard }) {
     }
   };
 
-  const inputChange = (event) => {
-    if (event.target.value.trim().length > 0) {
-      setInputIsValid({
-        ...inputIsValid,
-        [event.target.name]: true,
-      });
-    } else {
-      setInputIsValid({
-        ...inputIsValid,
-        [event.target.name]: false,
-      });
-    }
+  const markHasFalse = (event) => {
+    setInputIsValid({
+      ...inputIsValid,
+      [event.target.name]: false,
+    });
+    setClassValid({
+      ...classValid,
+      [event.target.name]: false,
+    });
+  };
+
+  const markHasTrue = (event) => {
+    setInputIsValid({
+      ...inputIsValid,
+      [event.target.name]: true,
+    });
+    setClassValid({
+      ...classValid,
+      [event.target.name]: true,
+    });
   };
 
   const classIsValid = () => {

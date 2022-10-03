@@ -1,17 +1,5 @@
 import "./cardInfo.scss";
 function CardInfo({ list, reset }) {
-  let hasInfo = reset;
-  /* console.log(hasInfo); */
-  console.log(reset);
-
-  if (list.length > 0) {
-    console.log(hasInfo);
-    hasInfo = true;
-    /*  console.log(hasInfo); */
-  } else {
-    list = [];
-  }
-
   return (
     <div className="cardInfo">
       {reset ? (
