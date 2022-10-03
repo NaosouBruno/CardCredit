@@ -49,15 +49,13 @@ function CardForm({ onAddCard }) {
     });
 
     fieldValid(event);
-    /* classChange(event);
-    inputChange(event); */
   };
 
   const fieldValid = (event) => {
     switch (event.target.name) {
       case "name":
         checkName(event);
-        /* checkFieldEmpty(event); */
+
         break;
       case "number":
         checkFieldEmpty(event);
@@ -93,7 +91,7 @@ function CardForm({ onAddCard }) {
       markHasTrue(field);
     }
   };
-  /* trocar essa validação se nao mesmo com caracter errado ele vai marcar como certo */
+
   const checkFieldEmpty = (event) => {
     const targetName = event.target.name;
     let min = 0;
