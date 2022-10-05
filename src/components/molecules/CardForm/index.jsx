@@ -24,12 +24,21 @@ const initialInputsState = {
   yy: false,
   cvc: false,
 };
+
+const initialErrorMessage = {
+  name: "Can`t be blank",
+  number: "Can`t be blank",
+  date: "Can`t be blank",
+  cvc: "Can`t be blank",
+};
 function CardForm({ onAddCard }) {
   const [card, setCard] = useState(initialState);
 
   const [classValid, setClassValid] = useState(initialClassState);
 
   const [inputIsValid, setInputIsValid] = useState(initialInputsState);
+
+  const [errorMessage, setErrorMessage] = useState(initialErrorMessage);
 
   const submitForm = (event) => {
     event.preventDefault();
@@ -55,7 +64,6 @@ function CardForm({ onAddCard }) {
     switch (event.target.name) {
       case "name":
         checkName(event);
-
         break;
       case "number":
         checkFieldEmpty(event);
@@ -77,32 +85,60 @@ function CardForm({ onAddCard }) {
   const checkName = (field) => {
     const checkName = field.target.value;
     const hasNumber = /[0-9]/;
-    const hasSpecial = /^(?=.*[@!#$%^&*()/\\])/;
+    const hasSpecial = /^(?=.*[@!.+=#$%^&*()/\\])/;
 
     const resultNumber = hasNumber.test(checkName);
 
     const resultSpecial = hasSpecial.test(checkName);
 
     if (resultSpecial || resultNumber || checkName < 3 || checkName > 12) {
-      console.log("entrou if");
-      console.log(field.target.name);
       markHasFalse(field);
+      changeNameMessageError(checkName, field.target.name);
     } else {
       markHasTrue(field);
     }
   };
 
+  const changeNameMessageError = (value, field) => {
+    if (value.trim().length === 0) {
+      setErrorMessage({
+        ...errorMessage,
+        [field]: "Can`t be blank",
+      });
+    } else {
+      setErrorMessage({
+        ...errorMessage,
+        [field]: "Wrong format",
+      });
+    }
+  };
+
+  const changeNumbersMessageError = (value, max, field) => {
+    if (value.trim().length === 0) {
+      console.log(value.trim().length);
+      setErrorMessage({
+        ...errorMessage,
+        [field]: "Can`t be blank",
+      });
+    } else {
+      setErrorMessage({
+        ...errorMessage,
+        [field]: "Wrong format",
+      });
+    }
+  };
   const checkFieldEmpty = (event) => {
     const targetName = event.target.name;
+    /*  const value = event.target.value; */
     let min = 0;
     let max = 0;
-    console.log("valor inicial", min, max);
+
     switch (targetName) {
       case "number":
         min = 16;
         max = 16;
         fieldIsEmpty(event, min, max);
-
+        /*  changeNumbersMessageError(value, max, targetName); */
         break;
       case "mm":
         min = 2;
@@ -117,8 +153,8 @@ function CardForm({ onAddCard }) {
 
         break;
       case "cvc":
-        min = 2;
-        max = 2;
+        min = 3;
+        max = 3;
         fieldIsEmpty(event, min, max);
 
         break;
@@ -129,8 +165,14 @@ function CardForm({ onAddCard }) {
 
   const fieldIsEmpty = (event, min, max) => {
     const value = event.target.value;
+    const targetName = event.target.name;
+
+    console.log("field is empty ta sendo executado");
+
     if (value.trim().length < min || value.trim().length > max) {
       markHasFalse(event);
+      console.log(targetName);
+      changeNumbersMessageError(value, targetName);
     } else {
       markHasTrue(event);
     }
@@ -151,10 +193,12 @@ function CardForm({ onAddCard }) {
   };
 
   const markHasFalse = (event) => {
+    console.log("entrou no has false");
     setInputIsValid({
       ...inputIsValid,
       [event.target.name]: false,
     });
+
     setClassValid({
       ...classValid,
       [event.target.name]: false,
@@ -206,7 +250,7 @@ function CardForm({ onAddCard }) {
 
         <InputError
           class={classValid.name ? " " : "error__description"}
-          content={classValid.name ? "" : "Can`t be blank"}
+          content={classValid.name ? "" : errorMessage.name}
         />
       </div>
 
@@ -228,8 +272,8 @@ function CardForm({ onAddCard }) {
         />
 
         <InputError
-          class={classValid.number ? " " : "error__description"}
-          content={classValid.number ? "" : "Can`t be blank"}
+          class={classValid.number ? "" : "error__description"}
+          content={classValid.number ? "" : errorMessage.number}
         />
       </div>
 
@@ -275,7 +319,7 @@ function CardForm({ onAddCard }) {
           </div>
           <InputError
             class={classValid.mm ? " " : "error__description"}
-            content={classValid.mm ? "" : "Can`t be blank"}
+            content={classValid.mm ? "" : errorMessage.date}
           />
         </div>
         <div className="form__dateGroup">
@@ -300,7 +344,7 @@ function CardForm({ onAddCard }) {
           />
           <InputError
             class={classValid.cvc ? " " : "error__description"}
-            content={classValid.cvc ? "" : "Can`t be blank"}
+            content={classValid.cvc ? "" : errorMessage.cvc}
           />
         </div>
       </div>
